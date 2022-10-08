@@ -19,3 +19,4 @@ export default class UserDao implements UserDaoI {
         return await UserModel.updateOne({_id: uid}, {$set: user});
     }
 }
+
