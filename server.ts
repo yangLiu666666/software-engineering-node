@@ -1,6 +1,7 @@
 /**
  * @file Implements an Express Node HTTP server.
  */
+import bodyParser from "body-parser";
 import express, {Request, Response} from 'express';
 import mongoose from "mongoose";
 import UserDao from "./daos/UserDao";
@@ -14,11 +15,13 @@ import MessageController from "./controllers/MessageController";
 import BookmarkController from "./controllers/BookmarkController";
 
 var cors = require('cors')
+require('dotenv').config();
+
+mongoose.connect('mongodb://localhost:27017/fse');
+
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-mongoose.connect('mongodb://localhost:27017/fse');
 
 const userDao = new UserDao();
 const userController = new UserController(app, userDao);
