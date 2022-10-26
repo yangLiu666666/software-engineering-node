@@ -15,12 +15,12 @@ import MessageController from "./controllers/MessageController";
 import BookmarkController from "./controllers/BookmarkController";
 
 var cors = require('cors')
+
+mongoose.connect('mongodb://localhost:27017/fse');
+
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.json());
-
-mongoose.connect('mongodb://localhost:27017/fse');
 
 const userDao = new UserDao();
 const userController = new UserController(app, userDao);
