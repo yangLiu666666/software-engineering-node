@@ -13,7 +13,7 @@ export default class FollowDao implements FollowDaoI{
         return FollowDao.followDao;
     }
 
-    async userFollowsUser(uidA: string, uidB: string): Promise<any> {
+    async userFollowsUser(uidA: string, uidB: string): Promise<Follow> {
         return await FollowModel.create({userFollowed: uidA, userFollowing: uidB});
     }
 
@@ -38,3 +38,4 @@ export default class FollowDao implements FollowDaoI{
     }
 
 }
+

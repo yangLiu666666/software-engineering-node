@@ -3,28 +3,30 @@ import Message from "../models/Message";
 import MessageModel from "../mongoose/MessageModel";
 
 export default class MessageDao implements MessageDaoI{
-    private static messageDao: MessageDao | null = null;
+    private static MessageDao: MessageDao | null = null;
 
     public static getInstance = (): MessageDao => {
-        if(MessageDao.messageDao === null) {
-            MessageDao.messageDao = new MessageDao();
+        if(MessageDao.MessageDao === null) {
+            MessageDao.MessageDao = new MessageDao();
         }
-        return MessageDao.messageDao;
+        return MessageDao.MessageDao;
     }
 
-    async userMessagesUser(uidA: string, uidB: string, message: Message): Promise<any> {
-        return await MessageModel.create({...message, from: uidA, to: uidB});
+    private constructor() { }
+
+    async userMessagesUser(uidA: string, uidB: string, message: string): Promise<any> {
+        return await MessageModel.create({from: uidA, to: uidB, message: message, sentOn: new Date});
     }
 
     async deleteMessage(mid: string): Promise<any> {
         return await MessageModel.deleteOne({_id:mid});
     }
 
-    async findAllSendFromMessages(uid: string): Promise<Message[]> {
-        return await MessageModel.find({from: uid}).populate("to").exec();
+    async findAllReceiveMessages(uid: string): Promise<Message[]> {
+        return await MessageModel.find({from: uid}).populate("from").exec();
     }
 
-    async findAllSendToMessages(uid: string): Promise<Message[]> {
-        return await  MessageModel.find({to: uid}).populate("from").exec();
+    async findAllSentMessages(uid: string): Promise<Message[]> {
+        return await  MessageModel.find({to: uid}).populate("to").exec();
     }
 }

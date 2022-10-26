@@ -11,10 +11,10 @@ export default class MessageController implements MessageControllerI {
     public static getInstance = (app: Express): MessageController => {
         if (MessageController.messageController === null) {
             MessageController.messageController = new MessageController();
-            app.post("/users/:useridA/messages/:useridB", MessageController.messageController.userMessagesUser);
-            app.delete("/messages/:mid", MessageController.messageController.deleteMessage);
-            app.get("/users/:userid/messages", MessageController.messageController.findAllSendFromMessages);
-            app.get("/messages/:userid", MessageController.messageController.findAllSendToMessages);
+            app.post('/api/users/:uidA/messages/:uidB', MessageController.messageController.userMessagesUser);
+            app.delete('/api/messages/:mid', MessageController.messageController.deleteMessage);
+            app.get('/api/users/:uid/messages', MessageController.messageController.findAllReceiveMessages);
+            app.get('/api/messages/:uid', MessageController.messageController.findAllSentMessages);
         }
         return MessageController.messageController;
     }
@@ -26,12 +26,12 @@ export default class MessageController implements MessageControllerI {
         MessageController.messageDao.deleteMessage(req.params.mid)
             .then(status => res.send(status));
 
-    findAllSendFromMessages = (req: Request, res: Response) =>
-        MessageController.messageDao.findAllSendFromMessages(req.params.uid)
+    findAllReceiveMessages = (req: Request, res: Response) =>
+        MessageController.messageDao.findAllReceiveMessages(req.params.uid)
             .then(messages => res.json(messages));
 
-    findAllSendToMessages = (req: Request, res: Response) =>
-        MessageController.messageDao.findAllSendToMessages(req.params.uid)
+    findAllSentMessages = (req: Request, res: Response) =>
+        MessageController.messageDao.findAllSentMessages(req.params.uid)
             .then(messages => res.json(messages));
 
 }

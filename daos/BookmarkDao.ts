@@ -12,6 +12,10 @@ export default class BookmarkDao implements BookmarkDaoI{
         return BookmarkDao.bookmarkDao;
     }
 
+    async findAllBookmarks(): Promise<Bookmark[]> {
+        return await BookmarkModel.find();
+    }
+
     async userBookmarksTuit(uid: string, tid: string): Promise<any> {
         return await BookmarkModel.create({bookmarkedTuit: tid, bookmarkedBy: uid});
     }
@@ -21,10 +25,6 @@ export default class BookmarkDao implements BookmarkDaoI{
     }
 
     async findAllTuitsBookmarkedByUser(uid: string): Promise<Bookmark[]> {
-        return await BookmarkModel.find({bookmarkedBy:uid}).populate("bookmarkedTuit").exec();
-    }
-
-    async findAllTuitsBookmarkedByOther(uid: string): Promise<Bookmark[]> {
         return await BookmarkModel.find({bookmarkedBy:uid}).populate("bookmarkedTuit").exec();
     }
 }

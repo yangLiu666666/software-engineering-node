@@ -29,5 +29,17 @@
     "ts-jest": "^27.1.3",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
-  }
+  },
+  "engines": {
+    "npm": "8.8.0",
+    "node": "18.9.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yangLiu666666/software-engineering-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yangLiu666666/software-engineering-node/issues"
+  },
+  "homepage": "https://github.com/yangLiu666666/software-engineering-node#readme"
 }

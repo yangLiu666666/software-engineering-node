@@ -9,13 +9,17 @@ export default class BookmarkController implements BookmarkControllerI{
     public static getInstance = (app: Express): BookmarkController => {
         if (BookmarkController.bookmarkController === null) {
             BookmarkController.bookmarkController = new BookmarkController();
-            app.post("/users/:userid/bookmarks/:tuitid", BookmarkController.bookmarkController.userBookmarksTuit);
-            app.delete("/users/:userid/unbookmarks/:tuitid", BookmarkController.bookmarkController.userUnbookmarksTuit);
-            app.get("/users/:userid/bookmarks", BookmarkController.bookmarkController.findAllTuitsBookmarkedByUser);
-            app.get("/users/:userid/bookmarks", BookmarkController.bookmarkController.findAllTuitsBookmarkedByOther);
+            app.post("/api/users/:uid/bookmarks/:tid", BookmarkController.bookmarkController.userBookmarksTuit);
+            app.delete("/api/users/:uid/bookmarks/:tid", BookmarkController.bookmarkController.userUnbookmarksTuit);
+            app.get("/api/users/:uid/bookmarks", BookmarkController.bookmarkController.findAllTuitsBookmarkedByUser);
+            app.get("/api/bookmarks", BookmarkController.bookmarkController.findAllBookmarks);
         }
         return BookmarkController.bookmarkController;
     }
+    findAllBookmarks = (req: Request, res: Response) =>
+        BookmarkController.bookmarkDao.findAllBookmarks()
+            .then(bookmarks => res.json(bookmarks));
+
     userBookmarksTuit  = (req: Request, res: Response) =>
         BookmarkController.bookmarkDao.userBookmarksTuit(req.params.uid, req.params.tid)
             .then(bookmarks => res.json(bookmarks));
@@ -28,7 +32,4 @@ export default class BookmarkController implements BookmarkControllerI{
         BookmarkController.bookmarkDao.findAllTuitsBookmarkedByUser(req.params.uid)
             .then(bookmarks => res.json(bookmarks));
 
-    findAllTuitsBookmarkedByOther = (req: Request, res: Response) =>
-        BookmarkController.bookmarkDao.findAllTuitsBookmarkedByOther(req.params.uid)
-            .then(bookmarks => res.json(bookmarks));
 }
