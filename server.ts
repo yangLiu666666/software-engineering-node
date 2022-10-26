@@ -1,6 +1,7 @@
 /**
  * @file Implements an Express Node HTTP server.
  */
+
 import bodyParser from "body-parser";
 import express, {Request, Response} from 'express';
 import mongoose from "mongoose";
@@ -17,10 +18,11 @@ import BookmarkController from "./controllers/BookmarkController";
 var cors = require('cors')
 
 mongoose.connect('mongodb://localhost:27017/fse');
-
+// const express = require('express');
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json())
 
 const userDao = new UserDao();
 const userController = new UserController(app, userDao);
@@ -33,15 +35,10 @@ const followController = FollowController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
 
 
-function sayHello(req: Request, res: Response) {
-    res.send('Hi from FSD1!!!')
-}
-
-const sayHello2 =(req: Request, res: Response) =>
-    res.send('Hi from FSD 2!!!')
-app.get('/', sayHello);
-
-app.get('/hello', sayHello2);
+app.get('/', (req: Request, res: Response) =>
+    res.send('Hi from FSD1!!!'));
+app.get('/hello', (req: Request, res: Response) =>
+    res.send('Hi from FSD2!!!'));
 
 /**
  * Start a server listening at port 4000 locally
