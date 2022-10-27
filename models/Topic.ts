@@ -1,4 +1,4 @@
 import Tuit from "./Tuit";
-export default class Topic {
-    private topic: string = '';
+export default interface Topic {
+    topic: string ;
 }

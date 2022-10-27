@@ -1,4 +1,4 @@
 import Tuit from "./Tuit";
-export default class Tag {
-    private tag: string = '';
+export default interface Tag {
+    tag: string ;
 }
