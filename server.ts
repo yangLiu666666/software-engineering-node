@@ -15,7 +15,7 @@ import FollowController from "./controllers/FollowController";
 import MessageController from "./controllers/MessageController";
 import BookmarkController from "./controllers/BookmarkController";
 
-
+require('dotenv').config();
 var cors = require('cors')
 
 mongoose.connect('mongodb://localhost:27017/fse');
