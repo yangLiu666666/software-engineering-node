@@ -18,7 +18,8 @@ import BookmarkController from "./controllers/BookmarkController";
 require('dotenv').config();
 var cors = require('cors')
 
-mongoose.connect('mongodb://localhost:27017/fse');
+// mongoose.connect('mongodb://localhost:27017/fse');
+mongoose.connect('mongodb+srv://yangliu:yl8596221YL!@tuitproject.vfnfs4p.mongodb.net/?retryWrites=true&w=majority');
 // const express = require('express');
 const app = express();
 app.use(cors());

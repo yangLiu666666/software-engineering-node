@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
-const UserSchema = new mongoose.Schema({
-    username: {type: String, required: true},
-    password: {type: String, required: true},
+import User from "../models/User";
+
+const UserSchema = new mongoose.Schema<User>({
+    username: {type: String, required: true, default: `testusername${Date.now()}`},
+    password: {type: String, required: true,  default: `testpassword${Date.now()}`},
     firstName: String,
     lastName: String,
     email: String,

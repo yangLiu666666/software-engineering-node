@@ -12,6 +12,7 @@ export default class UserDao implements UserDaoI {
     async createUser(user: User): Promise<User> {
         return await UserModel.create(user);
     }
+
     async deleteUser(uid: string):  Promise<any> {
         return await UserModel.deleteOne({_id: uid});
     }
