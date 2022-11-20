@@ -1,4 +1,4 @@
-import Like from "../models/Like";
+import Like from "../models/likes/Like";
 
 export default interface LikeDaoI{
     findAllTuitsLikedByUser(uid: string): Promise<Like[]>;

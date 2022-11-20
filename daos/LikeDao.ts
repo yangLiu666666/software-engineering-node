@@ -1,6 +1,6 @@
 import LikeDaoI from "../interfaces/LikeDaoI";
-import Like from "../models/Like";
-import LikeModel from "../mongoose/LikeModel";
+import Like from "../models/likes/Like";
+import LikeModel from "../mongoose/likes/LikeModel";
 
 export default class LikeDao implements LikeDaoI{
     private static likeDao: LikeDao | null = null;
@@ -15,30 +15,30 @@ export default class LikeDao implements LikeDaoI{
     private constructor() {}
 
     findUserLikesTuit =
-        async (uid, tid) =>
+        async (uid: string, tid: string) =>
             LikeModel.findOne(
                 {tuit: tid, likedBy: uid});
 
     countHowManyLikedTuit =
-        async (tid) =>
+        async (tid: string) =>
             LikeModel.count({tuit: tid});
 
     userLikesTuit =
-        async (uid, tid) =>
+        async (uid: string, tid: string) =>
             LikeModel.create({tuit: tid, likedBy: uid});
 
     userUnlikesTuit =
-        async (uid, tid) =>
+        async (uid: string, tid: string) =>
             LikeModel.deleteOne({tuit: tid, likedBy: uid});
 
     findAllUsersLikedThatTuit =
-        async (tid) =>
+        async (tid: string) =>
             LikeModel.find({tuit: tid})
                 .populate("likedBy")
                 .exec();
 
     findAllTuitsLikedByUser =
-        async (uid)=>
+        async (uid: string)=>
             LikeModel.find({likedBy: uid})
                 .populate({
                     path: "tuit",

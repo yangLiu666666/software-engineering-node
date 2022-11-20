@@ -1,4 +1,4 @@
-import Tuit from "../models/Tuit";
+import Tuit from "../models/tuits/Tuit";
 
 /**
  * @file Declares API for Tuits related data access object methods

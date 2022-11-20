@@ -1,4 +1,4 @@
-import Follow from "../models/Follow";
+import Follow from "../models/follows/Follow";
 import {Request, Response} from "express";
 
 export default interface FollowDaoI{

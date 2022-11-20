@@ -2,8 +2,8 @@
  * @file Implements DAO managing data storage of tuits. Uses mongoose TuitModel
  * to integrate with MongoDB
  */
-import TuitModel from "../mongoose/TuitModel";
-import Tuit from "../models/Tuit";
+import TuitModel from "../mongoose/tuits/TuitModel";
+import Tuit from "../models/tuits/Tuit";
 import TuitDaoI from "../interfaces/TuitDaoI";
 
 /**
@@ -28,7 +28,7 @@ export default class TuitDao implements TuitDaoI{
                 .exec();
 
     findAllTuitsByUser =
-        async (uid) =>
+        async (uid: string) =>
             TuitModel.find({postedBy: uid})
                 .populate("postedBy")
                 .exec();
@@ -44,24 +44,24 @@ export default class TuitDao implements TuitDaoI{
             TuitModel.create({...tuit, postedBy: uid});
 
     updateTuit =
-        async (uid, tuit) =>
+        async (uid: string, tuit: Tuit) =>
             TuitModel.updateOne(
                 {_id: uid},
                 {$set: tuit});
 
     updateLikes =
-        async (tid, newStats) =>
+        async (tid: string, newStats: any) =>
             TuitModel.updateOne(
                 {_id: tid},
                 {$set: {stats: newStats}});
 
     updateDislikes =
-        async (tid, newStats) =>
+        async (tid: string, newStats: any) =>
             TuitModel.updateOne(
                 {_id: tid},
                 {$set: {stats: newStats}});
 
     deleteTuit =
-        async (uid) =>
+        async (uid: string) =>
             TuitModel.deleteOne({_id: uid});
 }

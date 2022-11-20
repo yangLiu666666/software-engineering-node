@@ -38,7 +38,7 @@ export default class LikeController implements LikeControllerI {
         LikeController.likeDao.userUnlikesTuit(req.params.uid, req.params.tid)
             .then(status => res.send(status));
 
-    userTogglesTuitLikes = async (req, res) => {
+    userTogglesTuitLikes = async (req: any, res: any) => {
         const likeDao = LikeController.likeDao;
         const tuitDao = LikeController.tuitDao;
         const uid = req.params.uid;

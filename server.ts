@@ -2,29 +2,27 @@
  * @file Implements an Express Node HTTP server.
  */
 
-import bodyParser from "body-parser";
 import express, {Request, Response} from 'express';
 import mongoose from "mongoose";
-import UserDao from "./daos/UserDao";
-import TuitDao from "./daos/TuitDao";
 import UserController from "./controllers/UserController";
 import TuitController from "./controllers/TuitController";
-import LikeDao from "./daos/LikeDao";
 import LikeController from "./controllers/LikeController";
 import FollowController from "./controllers/FollowController";
 import MessageController from "./controllers/MessageController";
 import BookmarkController from "./controllers/BookmarkController";
-
+import AuthenticationController from "./controllers/auth-controller";
 require('dotenv').config();
-var cors = require('cors')
+const cors = require('cors');
 
 // mongoose.connect('mongodb://localhost:27017/fse');
 mongoose.connect('mongodb+srv://yangliu:yl8596221YL!@tuitproject.vfnfs4p.mongodb.net/?retryWrites=true&w=majority');
-// const express = require('express');
 const app = express();
-app.use(cors());
+app.use(cors({
+        credentials: true,
+        origin:true
+    }));
+
 app.use(express.json());
-// app.use(bodyParser.json())
 const session = require("express-session");
 
 let sess = {
@@ -33,23 +31,20 @@ let sess = {
         secure: false
     }
 }
+app.use(session(sess));
 
 if (process.env.ENV === 'PRODUCTION') {
     app.set('trust proxy', 1) // trust first proxy
     sess.cookie.secure = true // serve secure cookies
 }
 
-
-const userDao = new UserDao();
-const userController = new UserController(app, userDao);
-const tuitDao = new TuitDao();
-const tuitController = new TuitController(app, tuitDao);
-
+const userController = UserController.getInstance(app);
+const tuitController = TuitController.getInstance(app);
 const likeController = LikeController.getInstance(app);
 const messageController = MessageController.getInstance(app);
 const followController = FollowController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
-
+AuthenticationController(app);
 
 app.get('/', (req: Request, res: Response) =>
     res.send('Hi from FSD1!!!'));

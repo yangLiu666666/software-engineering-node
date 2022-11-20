@@ -1,4 +1,4 @@
-import Message from "../models/Message";
+import Message from "../models/messages/Message";
 
 export default interface MessageDaoI{
     userMessagesUser(uidA: string, uidB: string, message: string): Promise<Message>;
