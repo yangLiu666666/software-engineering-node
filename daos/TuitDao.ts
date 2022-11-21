@@ -21,47 +21,42 @@ export default class TuitDao implements TuitDaoI{
     }
     private constructor() {}
 
-    findAllTuits =
-        async () =>
-            TuitModel.find()
-                .populate("postedBy")
-                .exec();
+    findAllTuits = async (): Promise<Tuit[]> =>
+        TuitModel.find()
+            .populate("postedBy")
+            .exec();
 
-    findAllTuitsByUser =
-        async (uid: string) =>
-            TuitModel.find({postedBy: uid})
-                .populate("postedBy")
-                .exec();
+    findAllTuitsByUser = async (uid: string): Promise<Tuit[]> =>
+        TuitModel.find({postedBy: uid})
+            .sort({'postedOn': -1})
+            .populate("postedBy")
+            .exec();
 
-    findTuitById =
-        async (uid: string): Promise<any> =>
-            TuitModel.findById(uid)
-                .populate("postedBy")
-                .exec();
+    findTuitById = async (uid: string): Promise<any> =>
+        TuitModel.findById(uid)
+            .populate("postedBy")
+            .exec();
 
-    createTuitByUser =
-        async (uid: string, tuit: Tuit) =>
-            TuitModel.create({...tuit, postedBy: uid});
+    createTuitByUser = async (uid: string, tuit: Tuit): Promise<Tuit> =>
+        TuitModel.create({...tuit, postedBy: uid});
 
-    updateTuit =
-        async (uid: string, tuit: Tuit) =>
-            TuitModel.updateOne(
-                {_id: uid},
-                {$set: tuit});
+    updateTuit = async (tid: string, tuit: Tuit): Promise<any> =>
+        TuitModel.updateOne(
+            {_id: tid},
+            {$set: tuit});
 
-    updateLikes =
-        async (tid: string, newStats: any) =>
-            TuitModel.updateOne(
-                {_id: tid},
-                {$set: {stats: newStats}});
+    updateLikes = async (tid: string, newStats: any): Promise<any> =>
+        TuitModel.updateOne(
+            {_id: tid},
+            {$set: {stats: newStats}}
+        );
 
-    updateDislikes =
-        async (tid: string, newStats: any) =>
-            TuitModel.updateOne(
-                {_id: tid},
-                {$set: {stats: newStats}});
+    updateDislikes = async (tid: string, newStats: any): Promise<any> =>
+        TuitModel.updateOne(
+            {_id: tid},
+            {$set: {stats: newStats}}
+        );
 
-    deleteTuit =
-        async (uid: string) =>
-            TuitModel.deleteOne({_id: uid});
+    deleteTuit = async (uid: string): Promise<any> =>
+        TuitModel.deleteOne({_id: uid});
 }
