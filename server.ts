@@ -9,6 +9,7 @@ import LikeController from "./controllers/LikeController";
 import FollowController from "./controllers/FollowController";
 import MessageController from "./controllers/MessageController";
 import BookmarkController from "./controllers/BookmarkController";
+import DislikeController from "./controllers/DislikeController";
 import AuthenticationController from "./controllers/auth-controller";
 require('dotenv').config();
 const cors = require('cors');
@@ -48,6 +49,7 @@ const likeController = LikeController.getInstance(app);
 const messageController = MessageController.getInstance(app);
 const followController = FollowController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
+const dislikeController = DislikeController.getInstance(app);
 AuthenticationController(app);
 
 app.get('/', (req: Request, res: Response) =>
