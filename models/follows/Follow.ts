@@ -1,6 +1,6 @@
-import User from "../users/User"
+import {User} from "../users/User"
 
-export default interface Follow{
+export interface Follow{
     userFollowed : User;
     userFollowing : User;
 }

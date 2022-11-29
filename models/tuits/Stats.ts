@@ -1,6 +1,6 @@
-export default interface Stats {
+export interface Stats {
     replies?: number,
     retuits: number,
     likes: number,
-    dislike:number
+    dislikes: number
 };

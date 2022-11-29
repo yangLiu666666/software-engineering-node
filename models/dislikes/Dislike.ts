@@ -2,8 +2,8 @@
  * @file Declares Dislike data type representing relationship between
  * users and tuits, as in user dislikes a tuit
  */
-import Tuit from "../tuits/Tuit";
-import User from "../users/User";
+import {Tuit} from "../tuits/Tuit";
+import {User} from "../users/User";
 
 /**
  * @typedef Dislike Represents dislikes relationship between a user and a tuit,
@@ -12,7 +12,7 @@ import User from "../users/User";
  * @property {User} dislikedBy User disliking the tuit
  */
 
-export default interface Dislike {
+export interface Dislike {
     tuit: Tuit,
     dislikedBy: User
 };

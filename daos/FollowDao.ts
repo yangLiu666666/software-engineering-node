@@ -1,5 +1,5 @@
 import FollowDaoI from "../interfaces/FollowDaoI";
-import Follow from "../models/follows/Follow";
+import {Follow} from "../models/follows/Follow";
 import FollowModel from "../mongoose/follows/FollowModel";
 
 

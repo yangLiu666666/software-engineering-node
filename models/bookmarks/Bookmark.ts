@@ -1,7 +1,7 @@
-import Tuit from "../tuits/Tuit";
-import User from "../users/User";
+import {Tuit} from "../tuits/Tuit";
+import {User} from "../users/User";
 
-export default interface Bookmark{
+export interface Bookmark{
     bookmarkedTuit: Tuit;
     bookmarkedBy: User;
 }

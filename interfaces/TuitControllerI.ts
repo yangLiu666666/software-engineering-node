@@ -1,21 +1,25 @@
-import {Request, Response} from "express";
-
-export default interface TuitControllerI {
-    findAllTuits (req: Request, res: Response): void;
-    findTuitsByUser (req: Request, res: Response): void;
-    findTuitById (req: Request, res: Response): void;
-    createTuitByUser (req: Request, res: Response): void;
-    updateTuit (req: Request, res: Response): void;
-    deleteTuit (req: Request, res: Response): void;
-};
-
 // import {Request, Response} from "express";
 //
 // export default interface TuitControllerI {
-//     findAllTuits(req: Request, res: Response): void;
-//     findTuitById(req: Request, res: Response): void;
-//     findTuitsByUser(req: Request, res: Response): void;
-//     createTuit(req: Request, res: Response): void;
-//     updateTuit(req: Request, res: Response): void;
-//     deleteTuit(req: Request, res: Response): void;
-// }
+//     findAllTuits (req: Request, res: Response): void;
+//     findTuitsByUser (req: Request, res: Response): void;
+//     findTuitById (req: Request, res: Response): void;
+//     createTuitByUser (req: Request, res: Response): void;
+//     updateTuit (req: Request, res: Response): void;
+//     deleteTuit (req: Request, res: Response): void;
+// };
+
+/**
+ * @file Declares the TuitController interface.
+ */
+import {NextFunction, Request, Response} from "express";
+
+export interface TuitControllerI {
+    findAllTuits(req: Request, res: Response): void;
+    findTuitById(req: Request, res: Response, next: NextFunction): void;
+    findTuitsByUser(req: any, res: Response, next: NextFunction): void;
+    createTuitByUser(req: any, res: Response, next: NextFunction): void;
+    updateTuit(req: Request, res: Response, next: NextFunction): void;
+    deleteTuit(req: Request, res: Response, next: NextFunction): void;
+    userTogglesTuitLikes(req: any, res: Response, next: NextFunction): Promise<void>;
+}

@@ -1,5 +1,5 @@
 import MessageDaoI from "../interfaces/MessageDaoI";
-import Message from "../models/messages/Message";
+import {Message} from "../models/messages/Message";
 import MessageModel from "../mongoose/messages/MessageModel";
 
 export default class MessageDao implements MessageDaoI{

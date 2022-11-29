@@ -1,5 +1,5 @@
-import User from "../users/User";
-export default interface Message{
+import {User} from "../users/User";
+export interface Message{
     message: string;
     to: User;
     from: User;

@@ -1,12 +1,20 @@
-import { Request, Response } from "express";
+// import { Request, Response } from "express";
+//
+// /**
+//  * @file Declares API for Dislikes related methods
+//  */
+// export default interface LikeControllerI {
+//     findAllUsersThatDislikedTuit(req: Request, res: Response): void;
+//     findAllTuitsDislikedByUser(req: Request, res: Response): void;
+//     userDislikesTuit(req: Request, res: Response): void;
+//     userUndislikesTuit(req: Request, res: Response): void;
+//     userTogglesTuitDislikes(req: Request, res: Response): void;
+// };
+import {NextFunction, Request, Response} from "express";
 
-/**
- * @file Declares API for Dislikes related methods
- */
-export default interface LikeControllerI {
-    findAllUsersThatDislikedTuit(req: Request, res: Response): void;
-    findAllTuitsDislikedByUser(req: Request, res: Response): void;
-    userDislikesTuit(req: Request, res: Response): void;
-    userUndislikesTuit(req: Request, res: Response): void;
-    userTogglesTuitDislikes(req: Request, res: Response): void;
-};
+export interface DislikeControllerI {
+    userLikesTuit(req: Request, res: Response, next: NextFunction): void;
+    userUnlikesTuit(req: Request, res: Response, next: NextFunction): void;
+    findAllDislikes(req: Request, res: Response): void;
+    findAllTuitsDislikedByUser(req: any, res: Response, next: NextFunction): void;
+}

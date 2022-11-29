@@ -1,7 +1,7 @@
-import User from "../users/User";
-import Tuit from "../tuits/Tuit";
+import {User} from "../users/User";
+import {Tuit} from "../tuits/Tuit";
 
-export default interface Like{
+export interface Like{
     tuit: Tuit;
     likedBy: User;
 }
