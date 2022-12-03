@@ -27,17 +27,20 @@ app.use(cors({
 
 let sess = {
     secret: process.env.SECRET,
-    cookie: {
-        secure: false
-    },
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: false,
+    cookie: {
+        secure: true,
+        resave: true,
+        sameSite: 'none'
+    }
 }
 
-if (process.env.ENV === 'PRODUCTION') {
-    app.set('trust proxy', 1) // trust first proxy
-    sess.cookie.secure = true // serve secure cookies
-}
+app.set('trust proxy', 1)
+// if (process.env.ENV === 'PRODUCTION') {
+//     app.set('trust proxy', 1) // trust first proxy
+//     sess.cookie.secure = true // serve secure cookies
+// }
 
 app.use(session(sess));
 app.use(express.json());
