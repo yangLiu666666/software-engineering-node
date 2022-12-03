@@ -15,9 +15,6 @@
 import express, {Request, Response} from 'express';
 import mongoose from "mongoose";
 import {config} from "dotenv";
-import {LogErrors} from "./error_handlers/LogErrors";
-import {DbErrorHandler} from "./error_handlers/DbErrorHandler";
-import {ErrorHandler} from "./error_handlers/ErrorHandler";
 import {TuitController} from "./controllers/TuitController";
 import {UserController} from "./controllers/UserController";
 import {LikeController} from "./controllers/LikeController";
@@ -28,61 +25,63 @@ import cors from "cors";
 import {AuthController} from "./controllers/auth-controller";
 import {DislikeController} from "./controllers/DislikeController";
 
-config();
-const session = require("express-session");
 const app = express();
-app.use(cors({
-    credentials: true,
-    origin: true
-}));
+const cors = require('cors');
+const session = require("express-session");
 
-app.use(function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.header(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept'
-    );
-    next();
-});
+
+const corsOptions ={
+    origin:true,
+    credentials: true,
+}
+app.use(cors(corsOptions));
+app.use(express.json());
+
+// build the connection string
+const url='mongodb+srv://yangliu:yl8596221YL!@tuitproject.vfnfs4p.mongodb.net/?retryWrites=true&w=majority';
+
+mongoose.connect(url)
+// mongoose.connect('mongodb://localhost:27017/tuiter');
+
+
 
 let sess = {
-    secret: process.env.SECRET,
+    secret: process.env.SESSION_SECRET || 'Super Secret (change it)',
+    resave: true,
+    saveUninitialized: false,
     cookie: {
-        secure: false,
-        sameSite: "lax"
+        secure: true,
+        resave: true,
+        sameSite: 'none'
     }
 }
-if (process.env.ENV === "PRODUCTION") {
-    app.enable("trust proxy");
-    sess.cookie.secure = true;
-    sess.cookie.sameSite = "none";
-}
-app.use(session(sess));
-app.use(express.json());
-app.get('/hello', (req: Request, res: Response) => res.send('Hello World!'));
-app.get('/add/:a/:b', (req: Request, res: Response) => res.send(req.params.a + req.params.b));
-mongoose.connect('mongodb+srv://yangliu:yl8596221YL!@tuitproject.vfnfs4p.mongodb.net/?retryWrites=true&w=majority', (err) => {
-    if (err) throw err;
-    console.log("Mongoose connected!");
-});
 
+app.set('trust proxy', 1) // trust first proxy
+
+
+app.use(session(sess))
+
+
+app.get('/', (req: Request, res: Response) =>
+    res.send('Welcome!'));
+
+
+
+// create RESTful Web service API
 const userController = UserController.getInstance(app);
 const tuitController = TuitController.getInstance(app);
-const likeController = LikeController.getInstance(app);
+const likesController = LikeController.getInstance(app);
 const dislikeController = DislikeController.getInstance(app);
+const messageController = MessageController.getInstance(app);
 const followController = FollowController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
-const messageController = MessageController.getInstance(app);
 const authController = AuthController.getInstance(app);
 
 /**
- * Starts a server listening at port 4000 locally or
- * using environment variable POT on Heroku if applicable
+ * Start a server listening at port 4000 locally
+ * but use environment variable PORT on Heroku if available.
  */
 const PORT = 4000;
-app.use(LogErrors);
-app.use(DbErrorHandler);
-app.use(ErrorHandler);
 app.listen(process.env.PORT || PORT);
 
 // /**
