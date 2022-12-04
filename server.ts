@@ -16,7 +16,7 @@ const cors = require('cors');
 const session = require("express-session");
 
 // mongoose.connect('mongodb://localhost:27017/fse');
-mongoose.connect('mongodb+srv://yangliu:yl8596221YL!@tuitproject.vfnfs4p.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect(`mongodb+srv://yangliu:${process.env.mongodbpw}@tuitproject.vfnfs4p.mongodb.net/?retryWrites=true&w=majority`);
 
 const app = express();
 
@@ -24,6 +24,7 @@ app.use(cors({
         credentials: true,
         origin:true
     }));
+app.use(express.json());
 
 let sess = {
     secret: process.env.SECRET,
@@ -31,20 +32,13 @@ let sess = {
     saveUninitialized: false,
     cookie: {
         secure: true,
-        resave: true,
         sameSite: 'none'
     }
 }
 
 app.set('trust proxy', 1)
-// if (process.env.ENV === 'PRODUCTION') {
-//     app.set('trust proxy', 1) // trust first proxy
-//     sess.cookie.secure = true // serve secure cookies
-// }
 
 app.use(session(sess));
-app.use(express.json());
-
 
 const userController = UserController.getInstance(app);
 const tuitController = TuitController.getInstance(app);
