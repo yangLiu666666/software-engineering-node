@@ -16,7 +16,7 @@ const cors = require('cors');
 const session = require("express-session");
 
 // mongoose.connect('mongodb://localhost:27017/fse');
-mongoose.connect(`mongodb+srv://yangliu:${process.env.mongodbpw}@tuitproject.vfnfs4p.mongodb.net/?retryWrites=true&w=majority`);
+mongoose.connect(`mongodb+srv://yangliu:${process.env.mongodbpw}@tuitproject.vfnfs4p.mongodb.net/tuitProject?retryWrites=true&w=majority`);
 
 const app = express();
 
