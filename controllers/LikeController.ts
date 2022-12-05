@@ -41,7 +41,7 @@ export default class LikeController implements LikeControllerI {
      * @param {Response} res Represents response to client, including the
      * body formatted as JSON arrays containing the tuit objects that were liked
      */
-    findAllTuitsLikedByUser = (req: Request, res: Response) => {
+    findAllTuitsLikedByUser = (req: any, res: any) => {
         const uid = req.params.uid;
         // @ts-ignore
         const profile = req.session['profile'];
@@ -69,7 +69,7 @@ export default class LikeController implements LikeControllerI {
      * body formatted as JSON containing the new likes that was inserted in the
      * database
      */
-    userLikesTuit = (req: Request, res: Response) =>
+    userLikesTuit = (req: any, res: any) =>
         LikeController.likeDao.userLikesTuit(req.params.uid, req.params.tid)
             .then(likes => res.json(likes));
 
