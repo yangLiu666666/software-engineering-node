@@ -1,5 +1,4 @@
 import AccountType from "./AccountType";
-import AccountType from "./AccountType";
 import MaritalStatus from "./MaritalStatus";
 import Location from "./Location";
 import mongoose from "mongoose";
